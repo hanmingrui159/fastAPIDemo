@@ -3,6 +3,14 @@ from enum import Enum
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
+import pymongo
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
+
+uri = "mongodb+srv://awssimplified:<password>@cluster0.ofbc3.mongodb.net/?retryWrites=true&w=majority"
+client = MongoClient(uri, server_api=ServerApi('1'))
+db = client.belief_db
+
 app = FastAPI()
 
 
@@ -48,3 +56,10 @@ def add_item(item: Item) -> dict[str, Item]:
 
     items[item.id] = item
     return {"added": item}
+
+@app.post("/webhook_print")
+def webhook_print(data):
+    print('received success')
+    print(data)
+    db.test.insert_one({'data':data})
+    return {"data": data}
