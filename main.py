@@ -7,7 +7,7 @@ import pymongo
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
-uri = "mongodb+srv://awssimplified:<password>@cluster0.ofbc3.mongodb.net/?retryWrites=true&w=majority"
+uri = "mongodb+srv://awssimplified:VYjaFKcYUmiWbdAQ@cluster0.ofbc3.mongodb.net/?retryWrites=true&w=majority"
 client = MongoClient(uri, server_api=ServerApi('1'))
 db = client.belief_db
 
@@ -61,5 +61,5 @@ def add_item(item: Item) -> dict[str, Item]:
 def webhook_print(data):
     print('received success')
     print(data)
-    db.test.insert_one({'data':data})
+    # db.test.insert_one({'data':data})
     return {"data": data}
